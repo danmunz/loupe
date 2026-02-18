@@ -217,25 +217,18 @@ Increase if you hit rate limits. Decrease if you're impatient (but be careful).
 
 ### Geographic Bias
 
-The script defaults to searching with a California bias. To change this, edit the `search_place` function:
+By default the script searches globally with no geographic bias. If you're working with locations in a specific region, you can improve accuracy by adding a region suffix and coordinates to the `search_place` function:
 
 ```python
 params = {
     "key": api_key,
-    "query": f"{name} California",  # Change region here
-    "location": "37.5,-120",         # Lat/lng center point
-    "radius": 500000,                # Radius in meters
+    "query": f"{name} California",  # Add region to disambiguate
+    "location": "37.5,-120",        # Lat/lng center point
+    "radius": 500000,               # Search radius in meters
 }
 ```
 
-For international locations, remove the region suffix and adjust coordinates:
-```python
-params = {
-    "key": api_key,
-    "query": name,  # No region suffix
-    # Remove location/radius for worldwide search
-}
-```
+This is especially useful if your location names are ambiguous (e.g. "Springfield") or if you have many locations in the same area.
 
 ## Customizing the AI Selection Criteria
 
@@ -339,9 +332,14 @@ pip install requests
 
 ### Wrong locations found
 
-The script adds "California" to searches by default. If your locations are elsewhere:
-1. Edit the `search_place` function (see Geographic Bias section)
-2. Or make your CSV more specific: "The French Laundry, Yountville, CA"
+If the wrong place is being matched, make your CSV entries more specific:
+
+```
+The French Laundry, Yountville, CA
+Springfield, Illinois
+```
+
+Or add a geographic bias to the `search_place` function (see Geographic Bias section).
 
 ### API quota exceeded
 

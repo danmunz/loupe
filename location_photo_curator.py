@@ -110,9 +110,7 @@ def search_place(name: str, api_key: str) -> Optional[dict]:
     url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
     params = {
         "key": api_key,
-        "query": f"{name} California",
-        "location": "37.5,-120",
-        "radius": 500000,
+        "query": name,
     }
     
     try:
